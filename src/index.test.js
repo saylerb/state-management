@@ -17,10 +17,26 @@ test("reducer has default initial state", () => {
   expect(state).toEqual({ result: 4 });
 });
 
-test("can keep track of state of the world in a redux store", () => {
+test("can dispatch() changes and use getState()", () => {
   const store = createStore(addReducer);
 
   store.dispatch(addAction(3));
 
   expect(store.getState()).toEqual({ result: 3 });
+});
+
+test("we can subscribe to changes to store's state", () => {
+  const store = createStore(addReducer);
+
+  const handleChange = jest.fn(() => {
+    const result = store.getState().result;
+
+    return `Hello, the value is ${result}`;
+  });
+
+  store.subscribe(handleChange);
+
+  store.dispatch(addAction(3));
+
+  expect(handleChange).toReturnWith("Hello, the value is 3");
 });
