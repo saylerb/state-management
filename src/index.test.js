@@ -1,4 +1,10 @@
-import { addReducer, addAction } from "./index";
+import {
+  addReducer,
+  addAction,
+  setErrorMessage,
+  clearErrorMessage,
+  errorReducer
+} from "./index";
 import { createStore } from "redux";
 
 test("action creator", () => {
@@ -39,4 +45,19 @@ test("we can subscribe to changes to store's state", () => {
   store.dispatch(addAction(3));
 
   expect(handleChange).toReturnWith("Hello, the value is 3");
+});
+
+test("it can set an error message", () => {
+  const state = errorReducer(
+    { message: "" },
+    setErrorMessage("Something went wrong")
+  );
+
+  expect(state).toEqual({ message: "Something went wrong" });
+});
+
+test("it can clear an error message", () => {
+  const state = errorReducer({}, clearErrorMessage());
+
+  expect(state).toEqual({ message: "" });
 });
