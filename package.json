@@ -4,7 +4,7 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "test": "jest --silent",
+    "test": "jest",
     "format": "prettier --write \"src/**/*.{js,jsx,css,json}\"",
     "dev": "parcel src/index.html"
   },
@@ -15,7 +15,8 @@
     "babel-plugin-transform-es2015-modules-commonjs": "^6.26.2",
     "babel-preset-env": "^1.7.0",
     "jest": "^23.6.0",
-    "prettier": "^1.14.3"
+    "prettier": "^1.14.3",
+    "redux": "^4.0.0"
   },
   "dependencies": {}
 }
