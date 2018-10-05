@@ -20,5 +20,7 @@ test("reducer has default initial state", () => {
 test("can keep track of state of the world in a redux store", () => {
   const store = createStore(addReducer);
 
-  expect(store.getState()).toEqual({ result: 0 });
+  store.dispatch(addAction(3));
+
+  expect(store.getState()).toEqual({ result: 3 });
 });
