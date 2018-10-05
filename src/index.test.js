@@ -5,7 +5,7 @@ import {
   clearErrorMessage,
   errorReducer
 } from "./index";
-import { createStore } from "redux";
+import { createStore, combineReducers } from "redux";
 
 test("action creator", () => {
   expect(addAction(3)).toEqual({ type: "ADD", value: 3 });
@@ -60,4 +60,21 @@ test("it can clear an error message", () => {
   const state = errorReducer({}, clearErrorMessage());
 
   expect(state).toEqual({ message: "" });
+});
+
+test("can combine multiple reducers", () => {
+  const store = createStore(
+    combineReducers({
+      add: addReducer,
+      error: errorReducer
+    })
+  );
+
+  store.dispatch(addAction(3));
+  store.dispatch(setErrorMessage("Hello"));
+
+  expect(store.getState()).toEqual({
+    add: { result: 3 },
+    error: { message: "Hello" }
+  });
 });
