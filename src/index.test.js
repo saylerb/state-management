@@ -9,3 +9,9 @@ test("reducer returns new state of the world", () => {
 
   expect(state).toEqual({ result: 3 });
 });
+
+test("reducer has default initial state", () => {
+  const state = addReducer(undefined, addAction(4));
+
+  expect(state).toEqual({ result: 4 });
+});
