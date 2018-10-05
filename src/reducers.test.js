@@ -1,5 +1,10 @@
-import { addAction, setErrorMessage, clearErrorMessage } from "./actions";
-import { addReducer, errorReducer } from "./reducers";
+import {
+  addAction,
+  setErrorMessage,
+  clearErrorMessage,
+  addLog
+} from "./actions";
+import { addReducer, errorReducer, loggerReducer } from "./reducers";
 
 describe("add", () => {
   test("reducer returns new state of the world", () => {
@@ -30,4 +35,10 @@ describe("error", () => {
 
     expect(state).toEqual({ message: "" });
   });
+});
+
+describe("logger", () => {
+  const state = loggerReducer({ logs: [] }, addLog("Hello this is a log"));
+
+  expect(state).toEqual({ logs: ["Hello this is a log"] });
 });

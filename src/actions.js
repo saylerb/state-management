@@ -11,3 +11,8 @@ export const setErrorMessage = message => ({
 export const clearErrorMessage = () => ({
   type: "ERROR_MESSAGE_CLEARED"
 });
+
+export const addLog = log => ({
+  type: "LOG_ADDED",
+  log
+});

@@ -26,3 +26,15 @@ export const errorReducer = (state = { message: "" }, action) => {
       return state;
   }
 };
+
+export const loggerReducer = (state = { logs: [] }, action) => {
+  switch (action.type) {
+    case "LOG_ADDED":
+      return {
+        ...state,
+        logs: state.logs.concat(action.log)
+      };
+    default:
+      return state;
+  }
+};
