@@ -78,3 +78,17 @@ test("can combine multiple reducers", () => {
     error: { message: "Hello" }
   });
 });
+
+test("bind action creator demo", () => {
+  const store = createStore(addReducer);
+  const dispatchSpy = jest.spyOn(store, "dispatch");
+
+  const demoBindActionCreator = (action, dispatch) => (...args) =>
+    dispatch(action(...args));
+
+  const boundAddAction = demoBindActionCreator(addAction, store.dispatch);
+
+  boundAddAction(3);
+
+  expect(dispatchSpy).toHaveBeenCalledWith(addAction(3));
+});
