@@ -92,3 +92,37 @@ test("bind action creator demo", () => {
 
   expect(dispatchSpy).toHaveBeenCalledWith(addAction(3));
 });
+
+test("bind action creatorz", () => {
+  const store = createStore(
+    combineReducers({
+      add: addReducer,
+      error: errorReducer
+    })
+  );
+
+  const dispatchSpy = jest.spyOn(store, "dispatch");
+
+  const demoBindActionCreator = (action, dispatch) => (...args) =>
+    dispatch(action(...args));
+
+  const demoBindActionCreators = (actions, dispatch) => {
+    return Object.keys(actions).reduce((acc, action) => {
+      acc[action] = demoBindActionCreator(actions[action], dispatch);
+      return acc;
+    }, {});
+  };
+
+  const boundActions = demoBindActionCreators(
+    { addAction, setErrorMessage, clearErrorMessage },
+    store.dispatch
+  );
+
+  boundActions.addAction(4);
+  boundActions.setErrorMessage("This is a message");
+
+  expect(dispatchSpy).toHaveBeenCalledWith(addAction(4));
+  expect(dispatchSpy).toHaveBeenCalledWith(
+    setErrorMessage("This is a message")
+  );
+});
