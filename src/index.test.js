@@ -1,10 +1,5 @@
-import {
-  addReducer,
-  addAction,
-  setErrorMessage,
-  clearErrorMessage,
-  errorReducer
-} from "./index";
+import { addAction, setErrorMessage, clearErrorMessage } from "./index";
+import { addReducer, errorReducer } from "./reducers";
 import { createStore, combineReducers } from "redux";
 
 test("action creator", () => {
