@@ -1,22 +1,6 @@
-import { addAction, setErrorMessage, clearErrorMessage } from "./index";
+import { addAction, setErrorMessage, clearErrorMessage } from "./actions";
 import { addReducer, errorReducer } from "./reducers";
 import { createStore, combineReducers } from "redux";
-
-test("action creator", () => {
-  expect(addAction(3)).toEqual({ type: "ADD", value: 3 });
-});
-
-test("reducer returns new state of the world", () => {
-  const state = addReducer({ result: 0 }, addAction(3));
-
-  expect(state).toEqual({ result: 3 });
-});
-
-test("reducer has default initial state", () => {
-  const state = addReducer(undefined, addAction(4));
-
-  expect(state).toEqual({ result: 4 });
-});
 
 test("can dispatch() changes and use getState()", () => {
   const store = createStore(addReducer);
@@ -40,21 +24,6 @@ test("we can subscribe to changes to store's state", () => {
   store.dispatch(addAction(3));
 
   expect(handleChange).toReturnWith("Hello, the value is 3");
-});
-
-test("it can set an error message", () => {
-  const state = errorReducer(
-    { message: "" },
-    setErrorMessage("Something went wrong")
-  );
-
-  expect(state).toEqual({ message: "Something went wrong" });
-});
-
-test("it can clear an error message", () => {
-  const state = errorReducer({}, clearErrorMessage());
-
-  expect(state).toEqual({ message: "" });
 });
 
 test("can combine multiple reducers", () => {
