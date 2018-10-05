@@ -1,7 +1,11 @@
-import { add } from "./index";
+import { addReducer, addAction } from "./index";
 
-test("can do addition", () => {
-  const result = add(1, 2);
+test("action creator", () => {
+  expect(addAction(3)).toEqual({ type: "ADD", value: 3 });
+});
 
-  expect(result).toEqual(3);
+test("reducer returns new state of the world", () => {
+  const state = addReducer({ result: 0 }, addAction(3));
+
+  expect(state).toEqual({ result: 3 });
 });
